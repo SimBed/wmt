@@ -1,0 +1,22 @@
+<dl class="row mb-0">
+  <dt class="col-sm-3">Number</dt>
+  <dd class="col-sm-9"><%= result.number %></dd>
+
+  <dt class="col-sm-3">Score</dt>
+  <dd class="col-sm-9"><%= format_score(result.score) %></dd>
+
+  <dt class="col-sm-3">Position</dt>
+  <dd class="col-sm-9"><%= result.position %></dd>
+
+  <dt class="col-sm-3">Outcome</dt>
+  <dd class="col-sm-9">
+    <% if result.win? %>
+      <span class="badge text-bg-success">Win</span>
+    <% else %>
+      <span class="badge text-bg-secondary">Loss</span>
+    <% end %>
+  </dd>
+
+  <dt class="col-sm-3">Comment</dt>
+  <dd class="col-sm-9"><%= result.comment.presence || "—" %></dd>
+</dl>
