@@ -1,0 +1,40 @@
+<%= form_with(model: result, class: "row g-3") do |form| %>
+  <% if result.errors.any? %>
+    <div class="col-12">
+      <div class="alert alert-danger">
+        <h2 class="h6 mb-2"><%= pluralize(result.errors.count, "error") %> prevented this result from being saved:</h2>
+        <ul class="mb-0">
+          <% result.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="col-md-4">
+    <%= form.label :number, class: "form-label" %>
+    <%= form.number_field :number, class: "form-control", min: 1, step: 1, required: true %>
+  </div>
+
+  <div class="col-md-4">
+    <%= form.label :score, "Score (%)", class: "form-label" %>
+    <%= form.number_field :score, class: "form-control", min: 0, max: 100, step: 0.01, required: true %>
+  </div>
+
+  <div class="col-md-4">
+    <%= form.label :position, class: "form-label" %>
+    <%= form.number_field :position, class: "form-control", min: 1, step: 1, required: true %>
+  </div>
+
+  <div class="col-12">
+    <%= form.label :comment, class: "form-label" %>
+    <%= form.text_area :comment, class: "form-control", rows: 3 %>
+    <div class="form-text">Optional.</div>
+  </div>
+
+  <div class="col-12 d-flex gap-2">
+    <%= form.submit class: "btn btn-primary" %>
+    <%= link_to "Cancel", result.persisted? ? result : results_path, class: "btn btn-outline-secondary" %>
+  </div>
+<% end %>

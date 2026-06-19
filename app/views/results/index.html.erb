@@ -1,0 +1,104 @@
+<% content_for :title, "Results" %>
+
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+  <div>
+    <h1 class="h2 mb-1">Results</h1>
+    <p class="text-muted mb-0">Track scores, positions, and streaks.</p>
+  </div>
+
+  <% if authenticated? %>
+    <%= link_to "New result", new_result_path, class: "btn btn-primary" %>
+  <% end %>
+</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-sm-6 col-xl-3">
+    <div class="card h-100 border-0 shadow-sm">
+      <div class="card-body">
+        <div class="text-muted small">Highest score</div>
+        <div class="display-6 fw-semibold"><%= format_score(@statistics[:highest_score]) %></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-xl-3">
+    <div class="card h-100 border-0 shadow-sm">
+      <div class="card-body">
+        <div class="text-muted small">Lowest score</div>
+        <div class="display-6 fw-semibold"><%= format_score(@statistics[:lowest_score]) %></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-xl-3">
+    <div class="card h-100 border-0 shadow-sm">
+      <div class="card-body">
+        <div class="text-muted small">Longest run of wins</div>
+        <div class="display-6 fw-semibold"><%= @statistics[:longest_win_run] %></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-xl-3">
+    <div class="card h-100 border-0 shadow-sm">
+      <div class="card-body">
+        <div class="text-muted small">Longest run of losses</div>
+        <div class="display-6 fw-semibold"><%= @statistics[:longest_loss_run] %></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% if @results.any? %>
+  <div class="card border-0 shadow-sm">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Score</th>
+            <th scope="col">Position</th>
+            <th scope="col">Outcome</th>
+            <th scope="col">Comment</th>
+            <% if authenticated? %>
+              <th scope="col" class="text-end">Actions</th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <% @results.each do |result| %>
+            <tr id="<%= dom_id(result) %>">
+              <td class="fw-semibold"><%= result.number %></td>
+              <td><%= format_score(result.score) %></td>
+              <td><%= result.position %></td>
+              <td>
+                <% if result.win? %>
+                  <span class="badge text-bg-success">Win</span>
+                <% else %>
+                  <span class="badge text-bg-secondary">Loss</span>
+                <% end %>
+              </td>
+              <td class="text-muted"><%= result.comment.presence || "—" %></td>
+              <% if authenticated? %>
+                <td class="text-end text-nowrap">
+                  <%= link_to "View", result, class: "btn btn-sm btn-outline-secondary" %>
+                  <%= link_to "Edit", edit_result_path(result), class: "btn btn-sm btn-outline-primary" %>
+                  <%= button_to "Delete", result, method: :delete, class: "btn btn-sm btn-outline-danger", form: { data: { turbo_confirm: "Delete result ##{result.number}?" } } %>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% else %>
+  <div class="card border-0 shadow-sm">
+    <div class="card-body text-center py-5">
+      <p class="text-muted mb-0">No results yet.</p>
+      <% if authenticated? %>
+        <%= link_to "Add the first result", new_result_path, class: "btn btn-primary mt-3" %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
