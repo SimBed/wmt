@@ -16,6 +16,11 @@
 !/log/.keep
 !/tmp/.keep
 
+# Ignore contents of sockets but keep directory (the .keep file is a dummy file to convince git to track the directory that would otherwise be empty and be ignored)
+/tmp/sockets/*
+!/tmp/sockets/
+!/tmp/sockets/.keep
+
 # Ignore pidfiles, but keep the directory.
 /tmp/pids/*
 !/tmp/pids/
