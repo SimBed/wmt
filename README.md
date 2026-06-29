@@ -1,24 +1,13 @@
-# README
+a Rails app for recording and analyzing results from the Wednesday Morning Tournament (youtube bridge content by Rob Barrington and Gavin Wolpert)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+[Wednesday Morning Tournament](https://www.youtube.com/@bridgelesson)  
+<img src="public/wmt.png" alt="demo image" width="300"><br>
 
-Things you may want to cover:
+[![Ruby Style Guide](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop/rubocop)
 
-* Ruby version
+[![Ruby Style Guide](https://img.shields.io/badge/code_style-community-brightgreen.svg)](https://rubystyle.guide)
 
-* System dependencies
 
-* Configuration
+### Inital Steps
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Used Cursor to establish
