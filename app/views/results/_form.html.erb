@@ -14,7 +14,7 @@
 
   <div class="col-md-4">
     <%= form.label :number, class: "form-label" %>
-    <%= form.number_field :number, class: "form-control", min: 1, step: 1, required: true %>
+    <%= form.number_field :number, class: "form-control", min: 1, step: 1, required: true, value: @next_number || @result.number %>
   </div>
 
   <div class="col-md-4">
@@ -35,6 +35,6 @@
 
   <div class="col-12 d-flex gap-2">
     <%= form.submit class: "btn btn-primary" %>
-    <%= link_to "Cancel", result.persisted? ? result : results_path, class: "btn btn-outline-secondary" %>
+    <%= link_to "Cancel", results_path, class: "btn btn-outline-secondary" %>
   </div>
 <% end %>

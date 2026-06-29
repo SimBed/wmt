@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root "results#index"
 
-  resources :results
+  resources :results, except: [ :show ]
   resource :session
   resources :passwords, param: :token
 

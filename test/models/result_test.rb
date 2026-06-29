@@ -33,4 +33,30 @@ class ResultTest < ActiveSupport::TestCase
     refute result.win?
     assert result.loss?
   end
+
+  test "current_streak" do
+    Result.delete_all
+
+    assert_nil Result.current_streak
+
+    Result.create!(number: 1, score: 50.0, position: 1)
+    Result.create!(number: 2, score: 45.0, position: 2)
+    Result.create!(number: 3, score: 60.0, position: 1)
+
+    streak = Result.current_streak
+    assert_equal :win, streak[:type]
+    assert_equal 1, streak[:count]
+
+    Result.create!(number: 4, score: 55.0, position: 1)
+
+    streak = Result.current_streak
+    assert_equal :win, streak[:type]
+    assert_equal 2, streak[:count]
+
+    Result.create!(number: 5, score: 40.0, position: 3)
+
+    streak = Result.current_streak
+    assert_equal :loss, streak[:type]
+    assert_equal 1, streak[:count]
+  end
 end

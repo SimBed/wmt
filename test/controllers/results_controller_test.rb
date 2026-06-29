@@ -21,22 +21,17 @@ class ResultsControllerTest < ActionDispatch::IntegrationTest
       post results_url, params: { result: { comment: "Another round", number: 10, position: 1, score: 55.50 } }
     end
 
-    assert_redirected_to result_url(Result.last)
+    assert_redirected_to results_path
   end
 
-  test "should show result" do
-    get result_url(@result)
-    assert_response :success
-  end
-
-  test "should get edit" do
+    test "should get edit" do
     get edit_result_url(@result)
     assert_response :success
   end
 
   test "should update result" do
     patch result_url(@result), params: { result: { comment: @result.comment, number: @result.number, position: @result.position, score: @result.score } }
-    assert_redirected_to result_url(@result)
+    assert_redirected_to results_path
   end
 
   test "should destroy result" do
@@ -44,6 +39,6 @@ class ResultsControllerTest < ActionDispatch::IntegrationTest
       delete result_url(@result)
     end
 
-    assert_redirected_to results_url
+    assert_redirected_to results_path
   end
 end

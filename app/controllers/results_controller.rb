@@ -1,18 +1,16 @@
 class ResultsController < ApplicationController
   allow_unauthenticated_access only: :index
 
-  before_action :set_result, only: %i[ show edit update destroy ]
+  before_action :set_result, only: %i[ edit update destroy ]
 
   def index
     @results = Result.ordered
     @statistics = Result.statistics
   end
 
-  def show
-  end
-
   def new
     @result = Result.new
+    @next_number = Result.next_number
   end
 
   def edit
@@ -22,7 +20,7 @@ class ResultsController < ApplicationController
     @result = Result.new(result_params)
 
     if @result.save
-      redirect_to @result, notice: "Result was successfully created."
+      redirect_to results_path, notice: "Result was successfully created."
     else
       render :new, status: :unprocessable_content
     end
@@ -30,7 +28,7 @@ class ResultsController < ApplicationController
 
   def update
     if @result.update(result_params)
-      redirect_to @result, notice: "Result was successfully updated.", status: :see_other
+      redirect_to results_path, notice: "Result was successfully updated.", status: :see_other
     else
       render :edit, status: :unprocessable_content
     end
