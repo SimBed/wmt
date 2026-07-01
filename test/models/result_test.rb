@@ -59,4 +59,30 @@ class ResultTest < ActiveSupport::TestCase
     assert_equal :loss, streak[:type]
     assert_equal 1, streak[:count]
   end
+
+  test "win_rate calculates the percentage of wins" do
+    Result.delete_all
+
+    assert_nil Result.win_rate
+
+    Result.create!(number: 1, score: 50.0, position: 1)
+    Result.create!(number: 2, score: 45.0, position: 2)
+    Result.create!(number: 3, score: 60.0, position: 1)
+    Result.create!(number: 4, score: 55.0, position: 3)
+
+    assert_equal 50.0, Result.win_rate
+  end
+
+  test "average_score calculates the average score" do
+    Result.delete_all
+
+    assert_nil Result.average_score
+
+    Result.create!(number: 1, score: 50.0, position: 1)
+    Result.create!(number: 2, score: 45.0, position: 2)
+    Result.create!(number: 3, score: 60.0, position: 1)
+    Result.create!(number: 4, score: 55.0, position: 3)
+
+    assert_equal BigDecimal("52.50"), Result.average_score
+  end
 end

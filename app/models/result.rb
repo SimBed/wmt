@@ -41,11 +41,13 @@ class Result < ApplicationRecord
     current_streak = current_streak()
 
     {
-      highest_score: results.map(&:score).max,
-      lowest_score: results.map(&:score).min,
+      current_streak: current_streak,
       longest_win_run: longest_streak(results) { |result| result.win? },
       longest_loss_run: longest_streak(results) { |result| result.loss? },
-      current_streak: current_streak
+      highest_score:,
+      lowest_score:,
+      average_score:,
+      win_rate:
     }
   end
 
@@ -65,11 +67,37 @@ class Result < ApplicationRecord
     max_run
   end
 
+  def self.average_score
+    return nil unless Result.any?
+
+    Result.average(:score).to_f.round(2)
+  end
+
+  def self.win_rate
+    return nil unless Result.any?
+
+    wins = Result.where(position: 1).count
+    total = Result.count
+
+    (wins.to_f / total * 100).round(2)
+  end
+
+  def self.highest_score
+    return nil unless Result.any?
+
+    Result.maximum(:score)
+  end
+
+  def self.lowest_score
+    return nil unless Result.any?
+
+    Result.minimum(:score)
+  end
+
   def self.next_number
     return 1 unless Result.any?
 
     # maximum(:number) + 1
     ordered.first.number + 1
   end
-  private_class_method :longest_streak
 end

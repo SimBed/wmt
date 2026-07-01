@@ -10,12 +10,12 @@
   <% end %>
 </div>
 
-<div class="row g-3 mb-4">
+<div class="row g-3 mb-2">
   <div class="col-sm-6 col-xl-2">
     <div class="card h-100 border-0 shadow-sm">
       <div class="card-body">
         <div class="text-muted small">Current streak</div>
-        <div class="display-6 fw-semibold"><%= pluralize(@statistics[:current_streak][:count], @statistics[:current_streak][:type].to_s.capitalize) %></div>
+        <div class="fw-semibold"><%= pluralize(@statistics[:current_streak][:count], @statistics[:current_streak][:type].to_s.capitalize) %></div>
       </div>
     </div>
   </div>
@@ -23,8 +23,29 @@
   <div class="col-sm-6 col-xl-2">
     <div class="card h-100 border-0 shadow-sm">
       <div class="card-body">
+        <div class="text-muted small">Longest winning streak</div>
+        <div class="fw-semibold"><%= @statistics[:longest_win_run] %></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-xl-2">
+    <div class="card h-100 border-0 shadow-sm">
+      <div class="card-body">
+        <div class="text-muted small">Longest losing streak</div>
+        <div class="fw-semibold"><%= @statistics[:longest_loss_run] %></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-sm-6 col-xl-2">
+    <div class="card h-100 border-0 shadow-sm">
+      <div class="card-body">
         <div class="text-muted small">Highest score</div>
-        <div class="display-6 fw-semibold"><%= format_score(@statistics[:highest_score]) %></div>
+        <div class="fw-semibold"><%= format_score(@statistics[:highest_score]) %></div>
       </div>
     </div>
   </div>
@@ -33,7 +54,7 @@
     <div class="card h-100 border-0 shadow-sm">
       <div class="card-body">
         <div class="text-muted small">Lowest score</div>
-        <div class="display-6 fw-semibold"><%= format_score(@statistics[:lowest_score]) %></div>
+        <div class="fw-semibold"><%= format_score(@statistics[:lowest_score]) %></div>
       </div>
     </div>
   </div>
@@ -41,8 +62,8 @@
   <div class="col-sm-6 col-xl-2">
     <div class="card h-100 border-0 shadow-sm">
       <div class="card-body">
-        <div class="text-muted small">Longest run of wins</div>
-        <div class="display-6 fw-semibold"><%= @statistics[:longest_win_run] %></div>
+        <div class="text-muted small">Average Score</div>
+        <div class="fw-semibold"><%= format_score(@statistics[:average_score]) %></div>
       </div>
     </div>
   </div>
@@ -50,8 +71,8 @@
   <div class="col-sm-6 col-xl-2">
     <div class="card h-100 border-0 shadow-sm">
       <div class="card-body">
-        <div class="text-muted small">Longest run of losses</div>
-        <div class="display-6 fw-semibold"><%= @statistics[:longest_loss_run] %></div>
+        <div class="text-muted small">Win Rate</div>
+        <div class="fw-semibold"><%= format_score(@statistics[:win_rate]) %></div>
       </div>
     </div>
   </div>
