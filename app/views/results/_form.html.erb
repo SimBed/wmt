@@ -14,7 +14,7 @@
 
   <div class="col-md-4">
     <%= form.label :number, class: "form-label" %>
-    <%= form.number_field :number, class: "form-control", min: 1, step: 1, required: true, value: @next_number || @result.number %>
+    <%= form.number_field :number, class: "form-control", min: 1, step: 1, required: true, value: @result.number || @next_number %>
   </div>
 
   <div class="col-md-4">
@@ -24,7 +24,7 @@
 
   <div class="col-md-4">
     <%= form.label :position, class: "form-label" %>
-    <%= form.number_field :position, class: "form-control", min: 1, step: 1, required: true %>
+    <%= form.number_field :position, class: "form-control", min: 1, step: 1, required: true, value: @result.position || 1 %>
   </div>
 
   <div class="col-12">

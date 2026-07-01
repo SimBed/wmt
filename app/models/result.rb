@@ -3,7 +3,8 @@ class Result < ApplicationRecord
   validates :score, presence: true, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
   validates :position, presence: true, numericality: { only_integer: true, greater_than: 0 }
 
-  scope :ordered, -> { order(number: :desc) }
+  # scope :ordered, -> { order(number: :desc) }
+  scope :ordered, -> { order(created_at: :desc) }
 
   def win?
     position == 1
@@ -67,7 +68,8 @@ class Result < ApplicationRecord
   def self.next_number
     return 1 unless Result.any?
 
-    maximum(:number) + 1
+    # maximum(:number) + 1
+    ordered.first.number + 1
   end
   private_class_method :longest_streak
 end
