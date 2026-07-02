@@ -87,7 +87,6 @@
             <th scope="col">#</th>
             <th scope="col">Score</th>
             <th scope="col">Position</th>
-            <th scope="col">Outcome</th>
             <th scope="col">Comment</th>
             <% if authenticated? %>
               <th scope="col" class="text-end">Actions</th>
@@ -99,19 +98,18 @@
             <tr id="<%= dom_id(result) %>">
               <td class="fw-semibold"><%= result.number %></td>
               <td><%= format_score(result.score) %></td>
-              <td><%= result.position %></td>
               <td>
                 <% if result.win? %>
-                  <span class="badge text-bg-success">Win</span>
+                  <%= tag.i(class: %w[bi bi-trophy-fill text-warning]) %>
                 <% else %>
-                  <span class="badge text-bg-secondary">Loss</span>
+                  <%= result.position %>
                 <% end %>
               </td>
               <td class="text-muted"><%= result.comment.presence || "—" %></td>
               <% if authenticated? %>
                 <td class="text-end text-nowrap">
-                  <%= link_to "Edit", edit_result_path(result), class: "btn btn-sm btn-outline-primary mb-1" %>
-                  <%= button_to "Delete", result, method: :delete, class: "btn btn-sm btn-outline-danger", form: { data: { turbo_confirm: "Delete result ##{result.number}?" } } %>
+                  <%= link_to image_tag('edit.png', class: "table_icon"), edit_result_path(result), class: 'me-md-1' %>             
+                  <%= link_to image_tag('dustbin.webp', class: "table_icon"), result, data: { turbo_method: :delete, turbo_confirm: "Delete result ##{result.number}?" }%>
                 </td>
               <% end %>
             </tr>
