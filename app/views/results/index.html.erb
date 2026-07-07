@@ -15,7 +15,7 @@
     <div class="card h-100 border-0 shadow-sm">
       <div class="card-body">
         <div class="text-muted small">Current streak</div>
-        <div class="fw-semibold"><%= pluralize(@statistics[:current_streak][:count], @statistics[:current_streak][:type].to_s.capitalize) %></div>
+        <div class="fs-4 fw-semibold"><%= pluralize(@statistics[:current_streak][:count], @statistics[:current_streak][:type].to_s.capitalize) %></div>
       </div>
     </div>
   </div>
@@ -24,7 +24,14 @@
     <div class="card h-100 border-0 shadow-sm">
       <div class="card-body">
         <div class="text-muted small">Longest winning streak</div>
-        <div class="fw-semibold"><%= @statistics[:longest_win_run] %></div>
+        <div class="">
+          <span class="fs-4 fw-bold pe-1">
+          <%= @statistics[:longest_winning_streak][:length] %>
+          </span>
+          <span class="badge bg-light text-dark border">
+            <%= "#{@statistics[:longest_winning_streak][:start_number]} – #{@statistics[:longest_winning_streak][:end_number]}" %>
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -33,7 +40,14 @@
     <div class="card h-100 border-0 shadow-sm">
       <div class="card-body">
         <div class="text-muted small">Longest losing streak</div>
-        <div class="fw-semibold"><%= @statistics[:longest_loss_run] %></div>
+        <div class="">
+          <span class="fs-4 fw-bold" pe-1>
+          <%= @statistics[:longest_losing_streak][:length] %>
+          </span>
+          <span class="badge bg-light text-dark border">
+            <%= "#{@statistics[:longest_losing_streak][:start_number]} – #{@statistics[:longest_losing_streak][:end_number]}" %>
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -45,7 +59,12 @@
     <div class="card h-100 border-0 shadow-sm">
       <div class="card-body">
         <div class="text-muted small">Highest score</div>
-        <div class="fw-semibold"><%= format_score(@statistics[:highest_score]) %></div>
+          <span class="fs-4 fw-bold" pe-1>
+          <%= format_score(@statistics[:highest_score][:score]) %>
+          </span>
+          <span class="badge bg-light text-dark border">
+            <%= @statistics[:highest_score][:number] %>
+          </span>
       </div>
     </div>
   </div>
@@ -54,7 +73,12 @@
     <div class="card h-100 border-0 shadow-sm">
       <div class="card-body">
         <div class="text-muted small">Lowest score</div>
-        <div class="fw-semibold"><%= format_score(@statistics[:lowest_score]) %></div>
+          <span class="fs-4 fw-bold" pe-1>
+          <%= format_score(@statistics[:lowest_score][:score]) %>
+          </span>
+          <span class="badge bg-light text-dark border">
+            <%= @statistics[:lowest_score][:number] %>
+          </span>
       </div>
     </div>
   </div>

@@ -4,7 +4,7 @@ class ResultsController < ApplicationController
   before_action :set_result, only: %i[ edit update destroy ]
 
   def index
-    @results = Result.ordered
+    @results = Result.order_by_number
     @statistics = Result.statistics
   end
 

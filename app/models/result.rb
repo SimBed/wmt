@@ -3,8 +3,8 @@ class Result < ApplicationRecord
   validates :score, presence: true, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
   validates :position, presence: true, numericality: { only_integer: true, greater_than: 0 }
 
-  # scope :ordered, -> { order(number: :desc) }
-  scope :ordered, -> { order(created_at: :desc) }
+  scope :order_by_number, -> { order(number: :desc) }
+  scope :order_by_created_at, -> { order(created_at: :desc) }
 
   def win?
     position == 1
@@ -15,7 +15,7 @@ class Result < ApplicationRecord
   end
 
   def self.current_streak
-    results = Result.ordered
+    results = Result.order_by_number
 
     return nil if results.empty?
 
@@ -37,13 +37,13 @@ class Result < ApplicationRecord
   end
 
   def self.statistics
-    results = ordered.to_a
+    results = Result.order_by_number.to_a
     current_streak = current_streak()
 
     {
       current_streak: current_streak,
-      longest_win_run: longest_streak(results) { |result| result.win? },
-      longest_loss_run: longest_streak(results) { |result| result.loss? },
+      longest_winning_streak: longest_streak(results) { |result| result.win? },
+      longest_losing_streak: longest_streak(results) { |result| result.loss? },
       highest_score:,
       lowest_score:,
       average_score:,
@@ -53,18 +53,33 @@ class Result < ApplicationRecord
 
   def self.longest_streak(results)
     max_run = 0
+    max_start = nil
+    max_end = nil
+
     current_run = 0
+    current_start = nil
 
     results.each do |result|
       if yield(result)
+        current_start ||= result.number
         current_run += 1
-        max_run = current_run if current_run > max_run
+
+        if current_run > max_run
+          max_run = current_run
+          max_end = current_start
+          max_start = result.number
+        end
       else
         current_run = 0
+        current_start = nil
       end
     end
 
-    max_run
+    {
+      length: max_run,
+      start_number: max_start,
+      end_number: max_end
+    }
   end
 
   def self.average_score
@@ -85,19 +100,29 @@ class Result < ApplicationRecord
   def self.highest_score
     return nil unless Result.any?
 
-    Result.maximum(:score)
+    result = Result.order(score: :desc).first
+
+    {
+      score: result.score,
+      number: result.number
+    }
   end
 
   def self.lowest_score
     return nil unless Result.any?
 
-    Result.minimum(:score)
+    result = Result.order(score: :asc).first
+
+    {
+      score: result.score,
+      number: result.number
+    }
   end
 
   def self.next_number
     return 1 unless Result.any?
 
     # maximum(:number) + 1
-    ordered.first.number + 1
+    order_by_created_at.first.number + 1
   end
 end
