@@ -1,5 +1,14 @@
 <% content_for :title, "Results" %>
-
+<% streak_icon =
+  if @statistics[:current_streak][:type] == :win
+    tag.i(class: "bi bi-trophy-fill text-warning")
+  else
+    tag.span do
+      tag.i(class: "bi bi-graph-down-arrow text-danger me-1") +
+      tag.i(class: "bi bi-emoji-frown text-danger")
+    end
+  end
+%>
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
   <div>
     <h1 class="h2 mb-1">Results</h1>
@@ -14,8 +23,8 @@
   <div class="col-sm-6 col-xl-2">
     <div class="card h-100 border-0 shadow-sm">
       <div class="card-body">
-        <div class="text-muted small">Current streak</div>
-        <div class="fs-4 fw-semibold"><%= pluralize(@statistics[:current_streak][:count], @statistics[:current_streak][:type].to_s.capitalize) %></div>
+        <div class="text-muted small">Current streak <%= streak_icon %></div>
+        <div class="fs-4 fw-semibold"><%= @statistics[:current_streak][:count] %></div>
       </div>
     </div>
   </div>
@@ -87,7 +96,7 @@
     <div class="card h-100 border-0 shadow-sm">
       <div class="card-body">
         <div class="text-muted small">Average Score</div>
-        <div class="fw-semibold"><%= format_score(@statistics[:average_score]) %></div>
+        <div class="fs-4 fw-bold"><%= format_score(@statistics[:average_score]) %></div>
       </div>
     </div>
   </div>
@@ -96,7 +105,7 @@
     <div class="card h-100 border-0 shadow-sm">
       <div class="card-body">
         <div class="text-muted small">Win Rate</div>
-        <div class="fw-semibold"><%= format_score(@statistics[:win_rate]) %></div>
+        <div class="fs-4 fw-bold"><%= format_score(@statistics[:win_rate]) %></div>
       </div>
     </div>
   </div>
