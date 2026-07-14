@@ -35,11 +35,9 @@
         <div class="text-muted small">Longest winning streak</div>
         <div class="">
           <span class="fs-4 fw-bold pe-1">
-          <%= @statistics[:longest_winning_streak][:length] %>
+            <%= @statistics[:longest_winning_streak][:length] %>
           </span>
-          <span class="badge bg-light text-dark border">
-            <%= "#{@statistics[:longest_winning_streak][:start_number]} – #{@statistics[:longest_winning_streak][:end_number]}" %>
-          </span>
+          <%= render partial: "streak_range", collection: @statistics[:longest_winning_streak][:runs] %>
         </div>
       </div>
     </div>
@@ -51,11 +49,9 @@
         <div class="text-muted small">Longest losing streak</div>
         <div class="">
           <span class="fs-4 fw-bold" pe-1>
-          <%= @statistics[:longest_losing_streak][:length] %>
+            <%= @statistics[:longest_losing_streak][:length] %>
           </span>
-          <span class="badge bg-light text-dark border">
-            <%= "#{@statistics[:longest_losing_streak][:start_number]} – #{@statistics[:longest_losing_streak][:end_number]}" %>
-          </span>
+          <%= render partial: "streak_range", collection: @statistics[:longest_losing_streak][:runs] %>
         </div>
       </div>
     </div>

@@ -51,10 +51,10 @@ class Result < ApplicationRecord
     }
   end
 
+  # retain all streaks of max length, not just the first one
   def self.longest_streak(results)
     max_run = 0
-    max_start = nil
-    max_end = nil
+    longest_runs = []
 
     current_run = 0
     current_start = nil
@@ -66,8 +66,15 @@ class Result < ApplicationRecord
 
         if current_run > max_run
           max_run = current_run
-          max_end = current_start
-          max_start = result.number
+          longest_runs = [ {
+            start_number: result.number,
+            end_number: current_start
+          } ]
+        elsif current_run == max_run && max_run > 0
+          longest_runs << {
+            start_number: result.number,
+            end_number: current_start
+          }
         end
       else
         current_run = 0
@@ -77,8 +84,7 @@ class Result < ApplicationRecord
 
     {
       length: max_run,
-      start_number: max_start,
-      end_number: max_end
+      runs: longest_runs.reverse
     }
   end
 

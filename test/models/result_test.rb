@@ -20,8 +20,8 @@ class ResultTest < ActiveSupport::TestCase
 
     assert_equal({ score: BigDecimal("67.8"), number: 7 }, stats[:highest_score])
     assert_equal({ score: BigDecimal("39.2"), number: 6 }, stats[:lowest_score])
-    assert_equal({ length: 2, start_number: 5, end_number: 6 }, stats[:longest_losing_streak])
-    assert_equal({ length: 2, start_number: 3, end_number: 4 }, stats[:longest_winning_streak])
+    assert_equal({ length: 2, runs: [ { start_number: 5, end_number: 6 } ] }, stats[:longest_losing_streak])
+    assert_equal({ length: 2, runs: [ { start_number: 3, end_number: 4 } ] }, stats[:longest_winning_streak])
   end
 
   test "win and loss are based on position 1" do
