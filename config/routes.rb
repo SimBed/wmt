@@ -9,5 +9,5 @@ Rails.application.routes.draw do
   # route to ping to keep DB connections alive on homeserver
   get "/health", to: proc { ActiveRecord::Base.connection.execute("SELECT 1")
                             [ 200, {}, [ "OK" ] ]
-                          }, as: :ping_to_keep_app_awake  
+                          }, as: :ping_to_keep_app_awake
 end

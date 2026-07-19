@@ -1,4 +1,4 @@
-a Rails app for recording and analyzing results from the Wednesday Morning Tournament (youtube bridge content by Rob Barrington and Gavin Wolpert)
+WMT Results is a Rails app for recording and analyzing results from the Wednesday Morning Tournament (youtube bridge content by Rob Barrington and Gavin Wolpert)
 
 [Wednesday Morning Tournament](https://www.youtube.com/@bridgelesson)  
 <img src="public/wmt.png" alt="demo image" width="300"><br>
