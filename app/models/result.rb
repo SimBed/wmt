@@ -14,9 +14,7 @@ class Result < ApplicationRecord
     !win?
   end
 
-  def self.current_streak
-    results = Result.order_by_number
-
+  def self.current_streak(results)
     return nil if results.empty?
 
     first_is_win = results.first.win?
@@ -37,18 +35,18 @@ class Result < ApplicationRecord
   end
 
   def self.statistics(results)
-    results = results.to_a
-    current_streak = current_streak()
+    # results = results.to_a
+    current_streak = current_streak(results)
     tournament_count = results.count
 
     {
       current_streak: current_streak,
       longest_winning_streak: longest_streak(results) { |result| result.win? },
       longest_losing_streak: longest_streak(results) { |result| result.loss? },
-      highest_score:,
-      lowest_score:,
-      average_score:,
-      win_rate:,
+      highest_score: highest_score(results),
+      lowest_score: lowest_score(results),
+      average_score: average_score(results),
+      win_rate: win_rate(results),
       tournament_count: tournament_count,
       board_count: tournament_count * 8
     }
@@ -91,25 +89,25 @@ class Result < ApplicationRecord
     }
   end
 
-  def self.average_score
-    return nil unless Result.any?
+  def self.average_score(results)
+    return nil unless results.any?
 
-    Result.average(:score).to_f.round(2)
+    results.average(:score).to_f.round(2)
   end
 
-  def self.win_rate
-    return nil unless Result.any?
+  def self.win_rate(results)
+    return nil unless results.any?
 
-    wins = Result.where(position: 1).count
-    total = Result.count
+    wins = results.where(position: 1).count
+    total = results.count
 
     (wins.to_f / total * 100).round(2)
   end
 
-  def self.highest_score
-    return nil unless Result.any?
+  def self.highest_score(results)
+    return nil unless results.any?
 
-    result = Result.order(score: :desc).first
+    result = results.reorder(score: :desc).first
 
     {
       score: result.score,
@@ -117,10 +115,32 @@ class Result < ApplicationRecord
     }
   end
 
-  def self.lowest_score
-    return nil unless Result.any?
+  def self.lowest_score(results)
+    return nil unless results.any?
 
-    result = Result.order(score: :asc).first
+    result = results.reorder(score: :asc).first
+
+    {
+      score: result.score,
+      number: result.number
+    }
+  end
+
+  def self.highest_score(results)
+    return nil unless results.any?
+
+    result = results.reorder(score: :desc).first
+
+    {
+      score: result.score,
+      number: result.number
+    }
+  end
+
+  def self.lowest_score(results)
+    return nil unless results.any?
+
+    result = results.reorder(score: :asc).first
 
     {
       score: result.score,
