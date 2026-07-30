@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_19_104452) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_30_131024) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
   create_table "results", force: :cascade do |t|
     t.text "comment"
     t.datetime "created_at", null: false
+    t.boolean "full_team", default: true, null: false
     t.integer "number", null: false
     t.integer "position", null: false
     t.decimal "score", precision: 5, scale: 2, null: false

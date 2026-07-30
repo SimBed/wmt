@@ -116,6 +116,7 @@
             <th scope="col">#</th>
             <th scope="col">Score</th>
             <th scope="col">Position</th>
+            <th scope="col">Rob & Gav</th>
             <th scope="col">Comment</th>
             <% if authenticated? %>
               <th scope="col" class="text-end">Actions</th>
@@ -132,6 +133,13 @@
                   <%= tag.i(class: %w[bi bi-trophy-fill text-warning]) %>
                 <% else %>
                   <%= result.position %>
+                <% end %>
+              </td>
+              <td>
+                <% if result.full_team? %>
+                  <%= tag.i(class: %w[bi bi-check]) %>
+                <% else %>
+                  <%= tag.i(class: %w[bi bi-x-circle-fill text-danger]) %>
                 <% end %>
               </td>
               <td class="text-muted"><%= result.comment.presence || "—" %></td>
