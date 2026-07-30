@@ -26,11 +26,16 @@
     <%= form.label :position, class: "form-label" %>
     <%= form.number_field :position, class: "form-control", min: 1, step: 1, required: true, value: @result.position || 1 %>
   </div>
+  
+  <div class="col-md-4">
+    <%= form.checkbox :full_team, class: "form-check-input" %>
+    <%= form.label :full_team, 'Ro  b & Gavin', class: "form-check-label fw-bolder"%>
+  </div>
+
 
   <div class="col-12">
     <%= form.label :comment, class: "form-label" %>
     <%= form.text_area :comment, class: "form-control", rows: 3 %>
-    <div class="form-text">Optional.</div>
   </div>
 
   <div class="col-12 d-flex gap-2">

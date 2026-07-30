@@ -36,9 +36,10 @@ class Result < ApplicationRecord
     }
   end
 
-  def self.statistics
-    results = Result.order_by_number.to_a
+  def self.statistics(results)
+    results = results.to_a
     current_streak = current_streak()
+    tournament_count = results.count
 
     {
       current_streak: current_streak,
@@ -47,7 +48,9 @@ class Result < ApplicationRecord
       highest_score:,
       lowest_score:,
       average_score:,
-      win_rate:
+      win_rate:,
+      tournament_count: tournament_count,
+      board_count: tournament_count * 8
     }
   end
 

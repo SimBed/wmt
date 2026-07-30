@@ -14,3 +14,17 @@ img.table_icon {
   } 
   &:hover { @extend %click-button-effect;}
 }
+
+.canvas {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-right: 0.25rem;
+  padding-left: 0.25rem;
+  &.gray100-canvas {
+    background-color: $gray-100;
+  }
+  &.embossed {
+    box-shadow: 0.1rem 0.1rem 0.3rem $gray-800;
+    border-radius: 0.375rem;
+  }
+}

@@ -4,8 +4,13 @@ class ResultsController < ApplicationController
   before_action :set_result, only: %i[ edit update destroy ]
 
   def index
-    @results = Result.order_by_number
-    @statistics = Result.statistics
+  @results =
+    if params[:full_team].present?
+             Result.order_by_number.where(full_team: true)
+    else
+             Result.order_by_number
+    end
+    @statistics = Result.statistics(@results)
   end
 
   def new
@@ -45,6 +50,6 @@ class ResultsController < ApplicationController
     end
 
     def result_params
-      params.expect(result: [ :number, :score, :position, :comment ])
+      params.expect(result: [ :number, :score, :position, :full_team, :comment ])
     end
 end

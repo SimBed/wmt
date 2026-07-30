@@ -16,7 +16,7 @@ class ResultTest < ActiveSupport::TestCase
       Result.create!(number:, score:, position:)
     end
 
-    stats = Result.statistics
+    stats = Result.statistics(Result.order_by_number)
 
     assert_equal({ score: BigDecimal("67.8"), number: 7 }, stats[:highest_score])
     assert_equal({ score: BigDecimal("39.2"), number: 6 }, stats[:lowest_score])
