@@ -1,16 +1,27 @@
 <div class="mb-2 canvas gray100-canvas embossed"">
-  <div class="filter">
+
     <%= form_with url: results_path, method: :get, data: { controller: "filter" } do |form| %>
 
-      <div class="form-check form-switch">
-        <%= form.check_box :full_team,
-              { checked: params[:full_team].present?,
-                class: "form-check-input",
-                onchange: "this.form.submit();" },
-              "1", nil %>
+  <div class="d-flex gap-3">
+    <div class="form-check">
+      <%= form.radio_button :full_team, "both",
+            checked: params[:full_team] != "all",
+            class: "form-check-input",
+            onchange: "this.form.submit();" %>
+      <%= form.label :full_team_both, "Rob & Gav only", class: "form-check-label" %>
+    </div>
 
-        <%= form.label :full_team, "Rob & Gav both playing", class: "form-check-label" %>
-      </div>
+    <div class="form-check">
+      <%= form.radio_button :full_team, "all",
+            checked: params[:full_team] == "all",
+            class: "form-check-input",
+            onchange: "this.form.submit();" %>
+      <%= form.label :full_team_all, "All results", class: "form-check-label" %>
+    </div>
+    </div>
+
+
+
     <% end %>
-  </div>
+
 </div>

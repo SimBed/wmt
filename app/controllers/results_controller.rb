@@ -4,12 +4,12 @@ class ResultsController < ApplicationController
   before_action :set_result, only: %i[ edit update destroy ]
 
   def index
-  @results =
-    if params[:full_team].present?
-             Result.order_by_number.where(full_team: true)
-    else
-             Result.order_by_number
+    @results = Result.order_by_number
+
+    unless params[:full_team] == "all"
+      @results = @results.where(full_team: true)
     end
+
     @statistics = Result.statistics(@results)
   end
 
