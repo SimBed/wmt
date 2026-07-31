@@ -2,9 +2,40 @@ one:
   number: 1
   score: 52.36
   position: 1
-  comment: Strong start
+  full_team: true
 
 two:
   number: 2
   score: 48.10
   position: 2
+  full_team: false
+
+three:
+  number: 3
+  score: 61.25
+  position: 1
+  full_team: true
+
+four:
+  number: 4
+  score: 55.0
+  position: 1
+  full_team: true
+
+five:
+  number: 5
+  score: 44.75
+  position: 3
+  full_team: true
+
+six:
+  number: 6
+  score: 39.20
+  position: 2
+  full_team: true
+
+seven:
+  number: 7
+  score: 67.80
+  position: 1
+  full_team: false

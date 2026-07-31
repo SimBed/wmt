@@ -148,10 +148,32 @@ class Result < ApplicationRecord
     }
   end
 
+  def self.tournament_count(results)
+    results.count
+  end
+
+  def self.board_count(results)
+    tournament_count(results) * 8
+  end
+
+  def self.statistics(results)
+    {
+      current_streak: current_streak(results),
+      longest_winning_streak: longest_streak(results) { |result| result.win? },
+      longest_losing_streak: longest_streak(results) { |result| result.loss? },
+      highest_score: highest_score(results),
+      lowest_score: lowest_score(results),
+      average_score: average_score(results),
+      win_rate: win_rate(results),
+      tournament_count: tournament_count(results),
+      board_count: board_count(results)
+    }
+  end
+
   def self.next_number
     return 1 unless Result.any?
 
-    # maximum(:number) + 1
-    order_by_created_at.first.number + 1
+    maximum(:number) + 1
+    # order_by_created_at.first.number + 1
   end
 end
